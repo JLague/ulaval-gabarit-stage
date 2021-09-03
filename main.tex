@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+
+% Packages principaux
+%----------------------------------------------------------------
+\usepackage[french]{babel}	            % Langage du document
+\usepackage[utf8]{inputenc}	            % Encoder avec UTF-8
+\usepackage[useregional]{datetime2}     % Permet de modifier la façon dont la date est affichée
+\usepackage[T1]{fontenc}	            % Précise la façon dont le document actuel est encodé
+\usepackage{setspace}                   % Pour changer l'interligne
+\usepackage[margin=2.5cm]{geometry}     % Précise les marges du document
+%----------------------------------------------------------------
+
+% Bibliographie
+%----------------------------------------------------------------
+\usepackage[backend=biber,style=alphabetic,style=ieee]{biblatex}    % Pour utiliser des .bib en bibliographie
+\addbibresource{references.bib}                                     % Fichier contenant les citations
+%----------------------------------------------------------------
+
+% Table des matières
+%----------------------------------------------------------------
+\usepackage{tocloft}                                        % Ajoute du contrôle à la table des matières
+\setlength\cftbeforesecskip{5pt}
+\usepackage[nottoc]{tocbibind}                              % Ajoute toutes les sections à la table des matières
+%----------------------------------------------------------------
+
+% Sections
+%----------------------------------------------------------------
+\usepackage{newclude}       % Fournit \include* pour éviter les sauts de page
+% \setcounter{secnumdepth}{0} % Pour éviter la numérotation des sections
+%----------------------------------------------------------------
+
+% Packages utiles
+%----------------------------------------------------------------
+\usepackage[table,xcdraw]{xcolor}               % Colorer les cases d'une table
+\usepackage{amsmath,amsthm,amssymb,amsfonts}	% Symboles et environnement mathématiques
+\usepackage[group-digits=integer]{siunitx}      % Fournit les unités SI et \SI{num}{unité}
+\usepackage{minted}         % Blocs de code
+\usepackage{xcolor}         % Couleurs pour les blocs de code
+\usepackage{enumerate}      % Permet de mieux gérer la commande \enumerate
+\usepackage{graphicx}	    % Permet de mieux gérer la commande \includegraphics
+\usepackage{color}	        % Colorer le texte
+\usepackage{pgf,tikz}	    % Permet d'utiliser des graphiques PGF/Tikz
+\usetikzlibrary{arrows}     % Permet d'utiliser des images exportées de GeoGebra
+\usepackage{hyperref}	    % Création de liens hypertextes
+\usepackage{cprotect}	    % Personnalisation des légendes des figures
+\usepackage{float}          % Fournit le modificateur H pour les tables et figures
+\usepackage{multirow}       % Lignes sur plusieurs lignes de table
+\usepackage{multicol}       % Colonnes sur plusieurs colonnes de table
+\usepackage{textcomp}       % Ôte les avertissements de symboles indéfinis
+\usepackage{gensymb}        % Fournit la commande \degree
+\usepackage{subcaption}     % Personnalisation des légendes et sous-légendes
+\usepackage{tabulary}       % Modifier la hauteur des lignes d'une table
+\usepackage{tabularx}       % Modifier la largeur des colonnes d'une table
+\usepackage{mathtools}      % Fournit \lceil, \rceil, \lfloor et \rfloor
+\usepackage{csquotes}       % Fournit \enquote{} pour ajouter des guillemets
+\usepackage{appendix}       % Fournit \appendix pour les annexes
+% \usepackage{showframe}    % Utile pour débugger les "Overfull \hbox"
+%----------------------------------------------------------------
+
+% Définitions utiles
+%----------------------------------------------------------------
+\newcommand{\N}{\mathbb{N}}	                    % Raccourci pour l'ensemble des nombres naturels
+\newcommand{\Z}{\mathbb{Z}}	                    % Raccourci pour l'ensemble des nombres entiers
+\newcommand{\R}{\mathbb{R}}	                    % Raccourci pour l'ensemble des nombres réels
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}    % Raccourci pour la partie entière
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor} % Raccourci pour la partie entière supérieure
+\newcommand{\comment}[1]{}                      % Permet de faire un commentaire inline
+\graphicspath{{images/}}                        % Chemin à chercher pour les images
+\definecolor{LightGray}{gray}{0.9}              % Couleur pour les blocs de code
+%----------------------------------------------------------------
+
+% Configuration du document
+%----------------------------------------------------------------
+\makeatletter
+\renewcommand{\thepage}{\roman{page}}   % Numérotation de page en chiffres romains
+\setstretch{1.25}                       % Interligne
+\makeatother
+%----------------------------------------------------------------
+
+% Page titre - remplir les informations qui sont ici
+%----------------------------------------------------------------
+\usepackage{ULstagetitre} % Permet d'utiliser le template de page titre avec \maketitle
+
+% \titre{Rapport de fin de stage}                               % Titre du rapport (défaut)
+% \cours{}                % Cours du stage
+% \numcours{}             % Numéro du cours
+% \session{}              % Session où le stage a été effectué
+% \programme{}            % Programme d'étude du stagiaire
+% \faculte{}              % Faculté du programme
+% \poste{}                % Poste occupé par le stagiaire
+% \entreprise{}           % Entreprise/organisation où le stage a été effectué
+% \prepositiondest{au}                                          % Préposition à mettre devant le destinataire (défaut)
+% \destinataire{Département des stages en milieu pratique}      % Destinataire du rapport (défaut)
+% \dateremise{}           % Format YYYY-MM-DD
+% \auteur{}               % Nom du stagiaire
+% \matricule{}            % Matricule du stagiaire
+% \superviseur{}          % Nom du superviseur de stage
+% \postesuperviseur{}     % Poste occupé par le superviseur de stage
+%----------------------------------------------------------------
+
+% Document
+%----------------------------------------------------------------
+\begin{document}
+
+\maketitle  % Génération de la page titre, compte comme une page
+
+% Sections TLDR
+\include{tex/01_resume}
+\include{tex/02_remerciements}
+
+% Table des matières/tables/figures/symboles
+\tableofcontents                % Table des matières
+\clearpage                      % Nouvelle page
+% \listoftables                   % Liste des tableaux (optionnel)
+\listoffigures                  % Liste des figures (optionnel)
+\clearpage                      % Nouvelle page
+\include{tex/03_liste_symboles} % Liste des symboles (optionnel)
+% Fin table des matières/tables/figures/symboles
+
+% Remet la numération de page en chiffres arabes
+\renewcommand{\thepage}{\arabic{page}}
+
+% Textes principaux
+\include*{tex/04_intro}
+\include*{tex/05_taches}
+\include*{tex/06_developpement}
+\include*{tex/07_conclusion}
+% Fin textes principaux
+
+% Annexes (optionnel). Ne pas oublier de faire un renvoi vers
+% chaque annexe dans le texte, sinon elles sont inutiles.
+\include{tex/08_annexes}
+
+% Bibliographie
+\addcontentsline{toc}{section}{Bibliographie}   % Ajoute la bibliographie à la table des matières
+\printbibliography[title=Bibliographie]         % Génère la bibliographie avec le titre "Bibliographie"
+
+\end{document}
+%----------------------------------------------------------------

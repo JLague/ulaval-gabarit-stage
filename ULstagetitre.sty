@@ -1,0 +1,99 @@
+\ProvidesPackage{ULstagetitre}[2021/08/14 Page titre pour les rapports de stage UL - Auteur: Justin Lagüe]
+
+\RequirePackage{multicol}   % Utiliser la gauche et la droite de la page
+\RequirePackage{datetime2}  % Afficher la date de remise sous forme de texte
+\RequirePackage{setspace}   % Environnement à simple interligne
+
+% Définition des commandes permettant modifier les champs de la page titre
+\newcommand{\titre}[1]{\gdef\@titre{#1}}                        % Titre du document
+\newcommand{\cours}[1]{\gdef\@cours{#1}}                        % Nom du cours de stage
+\newcommand{\numcours}[1]{\gdef\@numcours{#1}}                  % Numéro du cours de stage
+\newcommand{\session}[1]{\gdef\@session{#1}}                    % Session où le stage a eu lieu
+\newcommand{\programme}[1]{\gdef\@programme{#1}}                % Programme d'étude du stagiaire
+\newcommand{\faculte}[1]{\gdef\@faculte{#1}}                    % Faculté pour laquelle le stage a eu lieu
+\newcommand{\poste}[1]{\gdef\@poste{#1}}                        % Poste occupé par le stagiaire
+\newcommand{\entreprise}[1]{\gdef\@entreprise{#1}}              % Entreprise ou organisation où le stage a eu lieu
+\newcommand{\prepositiondest}[1]{\gdef\@prepositiondest{#1}}    % Préposition à utiliser pour le destinataire
+\newcommand{\dest}[1]{\gdef\@dest{#1}}                          % Destinataire du document
+\newcommand{\dateremise}[1]{\gdef\@dateremise{\DTMdate{#1}}}    % Date de remise (sous la forme YYYY-MM-DD)
+\newcommand{\auteur}[1]{\gdef\@auteur{#1}}                      % Auteur du rapport de stage
+\newcommand{\matricule}[1]{\gdef\@matricule{#1}}                % Matricule de l'étudiant
+\newcommand{\superviseur}[1]{\gdef\@superviseur{#1}}            % Nom du superviseur de stage
+\newcommand{\postesuperviseur}[1]{\gdef\@postesuperviseur{#1}} % Poste occupé par le superviseur de stage
+
+% Valeurs par défaut
+\def\@titre{Rapport de fin de stage}
+\def\@cours{Nom du cours}
+\def\@numcours{Numéro du cours}
+\def\@session{Session}
+\def\@programme{Programme d'études}
+\def\@faculte{Faculté}
+\def\@poste{Poste du stagiaire}
+\def\@entreprise{Entreprise}
+\def\@prepositiondest{au}
+\def\@dest{Département des stages en milieux pratiques}
+\def\@dateremise{Date de remise}
+\def\@auteur{Auteur du rapport}
+\def\@matricule{Matricule}
+\def\@superviseur{Nom du superviseur}
+\def\@postesuperviseur{Poste du superviseur}
+
+
+% Redéfinition de la commande \maketitle. L'environnement titlepage n'est pas utilisée pour que
+% la page titre compte comme une page et que le compteur de pages soit à deux ensuite.
+\renewcommand{\maketitle}{
+\begin{singlespace}     % Réinitialise l'interligne à 1
+\hfuzz=3pt              % Enlève les avertissements d'overfull \hbox
+\thispagestyle{empty}   % Ôte le numéro de page
+
+% Début de l'en-tête
+\begin{multicols}{2}    % Côté gauche
+    \noindent\includegraphics[height=3\baselineskip]{images/logo.jpg} \\
+    \begin{footnotesize}
+    \textbf{\uppercase\expandafter{\@faculte}}
+    \end{footnotesize}
+\columnbreak            % Côté droit
+    \begin{flushright}
+    \@cours      \\
+    \@numcours   \\
+    \@session    \\
+    \@programme
+    \end{flushright}
+\end{multicols}
+% Fin de l'en-tête
+
+\vspace{3cm}
+
+% Début texte centré
+\begin{large}           
+\begin{center}
+    \@poste       \\
+    \@entreprise \\
+    \vspace{2cm}
+    \@titre      \\
+    \vspace{4cm}
+    \textbf{Destinataire} \\
+    Rapport adressé \@prepositiondest \hspace{1pt} \@dest   \\
+\end{center}
+ % Fin du texte centré
+
+\vspace{5cm}
+
+% Début du bas de page
+\noindent Date de remise : \@dateremise \\  % Côté gauche
+\end{large}
+\rule{\linewidth}{1pt}
+\begin{minipage}[t]{0.4\linewidth}
+    \textbf{\@auteur}  \\
+    \@matricule
+\end{minipage}
+\begin{minipage}[t]{0.6\linewidth}          % Côté droit
+    \begin{flushright}
+    Superviseur de stage : \textbf{\@superviseur}   \\
+    \@postesuperviseur
+    \end{flushright}
+\end{minipage}
+% Fin du bas de page
+
+\end{singlespace}
+}
